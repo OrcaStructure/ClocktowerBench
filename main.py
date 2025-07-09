@@ -1,10 +1,67 @@
+import utils
+
 
 def initalise_game():
     '''Create the game state consisting of system prompt (player number, role, description of all other roles, who has their deadvote etc) long-term memory (for summarised previous context, initally empty) and short-term memory (for current phase, initally empty). The context will be assembeled from these each time we call the LLM. We also store whether each player is dead or alive, for the conveience of the storyteller to update.
     
     Output: game_state object with all the above info
     '''
-    pass
+
+    '''
+    Order
+    1. define the variables
+    2. define the included roles (can be changed later)
+    3. define the role mapper function, which can map a role to an alignment
+    4. define default role count: returns the default number of each role based on the number of players
+
+    '''
+
+    # define variables
+    playerNumber = 8
+
+    # set roles for testing
+    roles = [
+        "washerwoman", 
+        "librarian", 
+        "investigator", 
+        "fortune Teller", 
+        "slayer",  
+        "recluse", 
+        "poisoner", 
+        "imp"
+    ]
+
+    
+
+    
+
+    def game_state_maker(playerNumber):
+        '''generate the game state variable based on the number of players'''
+        game_state = {
+            "players" : {},         # we want the player variable to be nested so its on a different level to the rest of the game state
+            "script name" : "Trouble Brewing",
+            "script" : "",
+            "day" : 1,
+            "time" : "night",
+        }
+
+        # initialise each players dictionary
+        for i in range(playerNumber):
+            game_state["players"][f"player{i}"] = {
+                "role" : roles[i],
+                "role_type" : utils.role_map.get(roles[i]),       # determine role type (townsfolk, outsider, etc.)
+                "alive" : True,
+                "alignment" : utils.role_mapper(roles[i]),        # determine alignment
+                "short_term_memory" : "",
+                "long_term_memory" : "",
+                "context" : "",
+                "has_votes" : True, 
+                "voted" : False
+            }
+        
+        return game_state
+
+    return game_state_maker(playerNumber)
 
 def game_loop():
     '''Call initalise_game(). Run the main day night cycle callinge each of the phases of the game
