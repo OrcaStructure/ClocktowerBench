@@ -1,0 +1,72 @@
+TROUBLE BREWING – REFERENCE SHEET
+
+TOWNSFOLK
+Washerwoman – You start knowing that 1 of 2 players is a particular Townsfolk.  
+Librarian – You start knowing that 1 of 2 players is a particular Outsider. (Or that zero are in play.)  
+Investigator – You start knowing that 1 of 2 players is a particular Minion.  
+Chef – You start knowing how many pairs of evil players there are.  
+Empath – Each night, you learn how many of your 2 alive neighbours are evil.  
+Fortune Teller – Each night, choose 2 players: you learn if either is a Demon. There is a good player that registers as a Demon to you.  
+Undertaker – Each night*, you learn which character died by execution today.  
+Monk – Each night*, choose a player (not yourself): they are safe from the Demon tonight.  
+Ravenkeeper – If you die at night, you are woken to choose a player: you learn their character.  
+Virgin – The 1st time you are nominated, if the nominator is a Townsfolk, they are executed immediately.  
+Slayer – Once per game, during the day, publicly choose a player: if they are the Demon, they die.  
+Soldier – You are safe from the Demon.  
+Mayor – If only 3 players live & no execution occurs, your team wins. If you die at night, another player might die instead.  
+
+OUTSIDERS
+Butler – Each night, choose a player (not yourself): tomorrow, you may only vote if they are voting too.  
+Drunk – You do not know you are the Drunk. You think you are a Townsfolk character, but you are not.  
+Recluse – You might register as evil & as a Minion or Demon, even if dead.  
+Saint – If you die by execution, your team loses.  
+
+MINIONS
+Poisoner – Each night, choose a player: they are poisoned tonight and tomorrow day.  
+Spy – Each night, you see the Grimoire. You might register as good & as a Townsfolk or Outsider, even if dead.  
+Scarlet Woman – If there are 5 or more players alive (Travellers don’t count) & the Demon dies, you become the Demon.  
+Baron – There are extra Outsiders in play. [+2 Outsiders]  
+
+DEMONS
+Imp – Each night*, choose a player: they die. If you kill yourself this way, a Minion becomes the Imp.  
+*Ability does not activate on the first night.  
+
+FLAVOUR TEXT
+Clouds roll in over Ravenswood Bluff, engulfing this sleepy town and its superstitious inhabitants in foreboding shadow Clouds roll in over Ravenswood Bluff, engulfing this sleepy town and its superstitious inhabitants in foreboding shadow. Freshly washed clothes dance eerily on lines strung between cottages. Chimneys cough plumes of smoke into the air. Exotic scents waft through cracks in windows and under doors, as hidden cauldrons lay bubbling. An unusually warm autumn breeze wraps around vine-covered walls and whispers ominously to those brave enough to walk the cobbled streets.
+Anxious mothers call their children home from play as thunder begins to clap on the horizon. If you listen more closely, however, noises stranger still can be heard echoing from the neighbouring forest. Under the
+watchful eye of a looming monastery, silhouetted figures skip from doorway to doorway. Those who can read the signs know there is... Trouble Brewing
+
+FIRST NIGHT
+Minion info
+• If more than one Minion, they all make eye contact.  
+• Message them who the demon is.
+
+Demon info 
+• Message them who their minions are.
+• Message them three not-in-play good roles.
+
+Night-order abilities
+Poisoner – They choose a player: they are poisoned.  
+Spy – Grimoire is shown to the Spy.
+Washerwoman – Show the townsfolk role and the names of two players.
+Librarian – If Outsiders in play, show their token; give two player names. Otherwise show “zero.”  
+Investigator – Show the Minion token; give two player names.
+Chef – Show the number of neighbouring evil pairs.  
+Empath – Show the number (0–2) of evil neighbours.  
+Fortune Teller – They choose two players; show yes/no if either is Demon or “decoy.”  
+Butler – They choose to a player; mark as “Master.”  
+
+OTHER NIGHTS
+Night-order abilities 
+Poisoner – Previous poisoned player recovers; they choose a new poisoned player.  
+Monk – Previous protected player loses protection; they choose a new protected player.  
+Spy – Grimoire is shown to the Spy.  
+Scarlet Woman – If they just became the Demon, message "You are the demon".
+Imp – Choose a player to die. If the Imp chose themself, a Minion becomes the new Imp and is shown the “You are” card.  
+Ravenkeeper – If killed tonight, they choose a player and learns their character.  
+Undertaker – If someone was executed today, they learn their character.  
+Empath – Learn the number (0–2) of evil neighbours.  
+Fortune Teller – They choose two players; learn yes/no as above.  
+Butler – They choose a player; mark as “Master.”  
+
+Dawn – announce any deaths.  
