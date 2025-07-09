@@ -1,5 +1,31 @@
 import utils
+import os
 
+# player number
+PLAYER_NUMBER = 8
+
+
+def load_text_file(filename: str) -> str:
+    """
+    Loads the entire contents of a text file in the same directory as main.py.
+    
+    :param filename: The name of the file (e.g. "game_data.txt")
+    :return: File contents as a single string
+    :raises FileNotFoundError: if the file does not exist
+    """
+    base_path = os.path.dirname(__file__)
+    full_path = os.path.join(base_path, filename)
+
+    with open(full_path, 'r', encoding='utf-8') as f:
+        return f.read()
+
+def initial_system_prompt(alignment, role):
+    '''define the system prompt. This requires the role, alignment'''
+    if alignment == "good":
+        system_prompt = f"You are playing in a game of Blood on the Clocktower. Your role is {role}. You are on the {alignment} team. Your ability states: {utils.role_ability.get(role)}. You are playing with {PLAYER_NUMBER-1} other players. You are playing among other LLMs, so you can be as manipulative as you want. Lying is encouraged, but you will need to work together with the other townsfolk and outsiders to win. As a townsfolk, you will want to find the demon and execute them. {load_text_file("trouble_brewing_edited.txt")}"
+    else:
+        system_prompt = f"You are playing in a game of Blood on the Clocktower. Your role is {role}. You are on the {alignment} team. Your ability states {utils.role_ability.get(role)}. You are playing with {PLAYER_NUMBER-1} other players. You are playing among other LLMs, so you can be as manipulative as you want. Lying is encouraged. As a demon you may want to fly under the radar, but as a minion, you  may want to cause chaos to subvert the good team. {load_text_file("trouble_brewing_edited.txt")}"
+    return system_prompt
 
 def initalise_game():
     '''Create the game state consisting of system prompt (player number, role, description of all other roles, who has their deadvote etc) long-term memory (for summarised previous context, initally empty) and short-term memory (for current phase, initally empty). The context will be assembeled from these each time we call the LLM. We also store whether each player is dead or alive, for the conveience of the storyteller to update.
@@ -17,7 +43,7 @@ def initalise_game():
     '''
 
     # define variables
-    playerNumber = 8
+    
 
     # set roles for testing
     roles = [
@@ -32,12 +58,14 @@ def initalise_game():
     ]
 
 
+
+
     def game_state_maker(playerNumber):
         '''generate the game state variable based on the number of players'''
         game_state = {
             "players" : {},         # we want the player variable to be nested so its on a different level to the rest of the game state
             "script name" : "Trouble Brewing",
-            "script" : "",
+            "script" : load_text_file("trouble_brewing_edited.txt"),
             "day" : 1,
             "time" : "night",
         }
@@ -49,6 +77,7 @@ def initalise_game():
                 "role_type" : utils.role_map.get(roles[i]),       # determine role type (townsfolk, outsider, etc.)
                 "alive" : True,
                 "alignment" : utils.role_mapper(roles[i]),        # determine alignment
+                "system_prompt" : "You are " + roles[i] + "\n" + game_state["script"],
                 "short_term_memory" : "",
                 "long_term_memory" : "",
                 "context" : "",
@@ -58,7 +87,7 @@ def initalise_game():
         
         return game_state
 
-    return game_state_maker(playerNumber)
+    return game_state_maker(PLAYER_NUMBER)
 
 def game_loop():
     '''Call initalise_game(). Run the main day night cycle callinge each of the phases of the game
