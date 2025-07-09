@@ -31,9 +31,6 @@ def initalise_game():
         "imp"
     ]
 
-    
-
-    
 
     def game_state_maker(playerNumber):
         '''generate the game state variable based on the number of players'''
