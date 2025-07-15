@@ -7,6 +7,26 @@ client = OpenAI(
 )
 
 #Example function calling from open ai api reference
+
+tools = [{
+    "type": "function",
+    "name": "get_weather",
+    "description": "Get current temperature for a given location.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "location": {
+                "type": "string",
+                "description": "City and country e.g. Bogotá, Colombia"
+            }
+        },
+        "required": [
+            "location"
+        ],
+        "additionalProperties": False
+    }
+}]
+
 # Main tools for the storyteller llm 
 storyteller_tools = [
     {
@@ -186,6 +206,8 @@ storyteller_tools = [
     }
     ]
 
+# some tools for the player llms
+
 player_tools = [
     {
         "type": "function",
@@ -226,7 +248,7 @@ player_tools = [
                 },
                 "statement" : {
                     "type": "string",
-                    "description": "A string that contains the statement the player would like to use when claiming. E.g. the Gossip can 'gossip' that the Demon is a 'Fang Gu'."
+                    "description": "A string that contains the statement the player would like to use when claiming. E.g. the Gossip can 'gossip' that the Demon is a 'Fang Gu'. "
                 }
             },
             "required": [
