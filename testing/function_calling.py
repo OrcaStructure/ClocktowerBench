@@ -7,7 +7,8 @@ client = OpenAI(
 )
 
 #Example function calling from open ai api reference
-main_tools = [
+# Main tools for the storyteller llm 
+storyteller_tools = [
     {
         "type": "function",
         "name": "assign_role",
@@ -184,6 +185,78 @@ main_tools = [
         }
     }
     ]
+
+player_tools = [
+    {
+        "type": "function",
+        "name": "send_message",
+        "description": "During the day phase, send a message to another character",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "player_id": {
+                    "type": "string",
+                    "description": "Another player's id. e.g. player3"
+                },
+                "content": {
+                    "type": "string",
+                    "description": "Content of the message."
+                }
+            },
+            "required": [
+                "player_id", "content"
+            ],
+            "additionalProperties": False
+        }
+    },
+    {
+        "type": "function",
+        "name": "use_declarative_ability",
+        "description": "During townhall, use a declarative ability. You don't need to necessarily have the declarative ability",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "claimed_role": {
+                    "type": "string",
+                    "description": "The role that the player is claiming."
+                },
+                "targets": {
+                    "type": "dict",
+                    "description": "A dictionary containing the target's player ids as keys, and their corresponding information as values. The value should be empty if there is no corresponding information to the ability (e.g. in the case of a slayer.)"
+                },
+                "statement" : {
+                    "type": "string",
+                    "description": "A string that contains the statement the player would like to use when claiming. E.g. the Gossip can 'gossip' that the Demon is a 'Fang Gu'."
+                }
+            },
+            "required": [
+                "claimed_role"
+            ],
+            "additionalProperties": False
+        }
+    },
+    {
+        "type": "function",
+        "name": "nominate player message",
+        "description": "During townhall, nominate a player",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "player_id": {
+                    "type": "string",
+                    "description": "Another player's id. e.g. player3"
+                }
+            },
+            "required": [
+                "player_id"
+            ],
+            "additionalProperties": False
+        }
+    },
+
+]
+
+# Summariser tools for the llm
 
 summary_tools = [
     {
