@@ -5,8 +5,6 @@ import os
 PLAYER_NUMBER = 8
 
 
-
-
 # def initial_system_prompt(alignment, role):
 #     '''define the system prompt. This requires the role, alignment'''
 
