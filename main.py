@@ -5,27 +5,14 @@ import os
 PLAYER_NUMBER = 8
 
 
-def load_text_file(filename: str) -> str:
-    """
-    Loads the entire contents of a text file in the same directory as main.py.
-    
-    :param filename: The name of the file (e.g. "game_data.txt")
-    :return: File contents as a single string
-    :raises FileNotFoundError: if the file does not exist
-    """
-    base_path = os.path.dirname(__file__)
-    full_path = os.path.join(base_path, filename)
 
-    with open(full_path, 'r', encoding='utf-8') as f:
-        return f.read()
 
-def initial_system_prompt(alignment, role):
-    '''define the system prompt. This requires the role, alignment'''
-    if alignment == "good":
-        system_prompt = f"You are playing in a game of Blood on the Clocktower. Your role is {role}. You are on the {alignment} team. Your ability states: {utils.role_ability.get(role)}. You are playing with {PLAYER_NUMBER-1} other players. You are playing among other LLMs, so you can be as manipulative as you want. Lying is encouraged, but you will need to work together with the other townsfolk and outsiders to win. As a townsfolk, you will want to find the demon and execute them. {load_text_file("trouble_brewing_edited.txt")}"
-    else:
-        system_prompt = f"You are playing in a game of Blood on the Clocktower. Your role is {role}. You are on the {alignment} team. Your ability states {utils.role_ability.get(role)}. You are playing with {PLAYER_NUMBER-1} other players. You are playing among other LLMs, so you can be as manipulative as you want. Lying is encouraged. As a demon you may want to fly under the radar, but as a minion, you  may want to cause chaos to subvert the good team. {load_text_file("trouble_brewing_edited.txt")}"
-    return system_prompt
+# def initial_system_prompt(alignment, role):
+#     '''define the system prompt. This requires the role, alignment'''
+
+#     system_prompt = utils.system_prompt_generator(alignment, role, PLAYER_NUMBER) + "\n" + {utils.load_text_file("trouble_brewing_edited.txt")}
+
+#     return system_prompt
 
 def initalise_game():
     '''Create the game state consisting of system prompt (player number, role, description of all other roles, who has their deadvote etc) long-term memory (for summarised previous context, initally empty) and short-term memory (for current phase, initally empty). The context will be assembeled from these each time we call the LLM. We also store whether each player is dead or alive, for the conveience of the storyteller to update.
@@ -47,47 +34,41 @@ def initalise_game():
 
     # set roles for testing
     roles = [
-        "washerwoman", 
-        "librarian", 
-        "investigator", 
-        "fortune Teller", 
-        "slayer",  
-        "recluse", 
-        "poisoner", 
-        "imp"
+        "Washerwoman", 
+        "Librarian", 
+        "Investigator", 
+        "Fortune Teller", 
+        "Slayer",  
+        "Recluse", 
+        "Poisoner", 
+        "Imp"
     ]
 
 
-
-
-    def game_state_maker(playerNumber):
+    def game_state_maker(player_number: int):
         '''generate the game state variable based on the number of players'''
+        
+        assert len(roles) >= player_number
+
         game_state = {
-            "players" : {},         # we want the player variable to be nested so its on a different level to the rest of the game state
-            "script name" : "Trouble Brewing",
-            "script" : load_text_file("trouble_brewing_edited.txt"),
-            "day" : 1,
-            "time" : "night",
+            # call the utils.make_player() function to generate players
+            "players": {
+                f"player{i+1}": utils.make_player(roles[i], i+1, player_number)
+                for i in range(player_number)
+            },
+            "player_count": player_number,
+            "script_name": "Trouble Brewing",
+            "script": utils.load_text_file("trouble_brewing_edited.txt"),
+            "day": 1,
+            "time": "night",
         }
 
-        # initialise each players dictionary
-        for i in range(playerNumber):
-            game_state["players"][f"player{i}"] = {
-                "role" : roles[i],
-                "role_type" : utils.role_map.get(roles[i]),       # determine role type (townsfolk, outsider, etc.)
-                "alive" : True,
-                "alignment" : utils.role_mapper(roles[i]),        # determine alignment
-                "system_prompt" : "You are " + roles[i] + "\n" + game_state["script"],
-                "short_term_memory" : "",
-                "long_term_memory" : "",
-                "context" : "",
-                "has_votes" : True, 
-                "voted" : False
-            }
-        
         return game_state
-
+    
     return game_state_maker(PLAYER_NUMBER)
+        
+
+
 
 def game_loop():
     '''Call initalise_game(). Run the main day night cycle callinge each of the phases of the game

@@ -17,11 +17,12 @@ def test_initial_game_state_structure():
     state = game.initalise_game()
 
     # top-level keys
-    assert set(state.keys()) == {"players", "script name", "script", "day", "time"}
+    assert set(state.keys()) == {"players", "player_count", "script_name", "script", "day", "time"}
 
     # defaults
-    assert state["script name"] == "Trouble Brewing"
-    assert state["script"] == ""
+    assert state["player_count"] == game.PLAYER_NUMBER
+    assert state["script_name"] == "Trouble Brewing"
+    assert state["script"] == game.utils.load_text_file("trouble_brewing_edited.txt")
     assert state["day"] == 1
     assert state["time"] == "night"
 
@@ -31,7 +32,7 @@ def test_player_count_and_names():
 
     # exactly eight players named player0…player7
     assert len(players) == 8
-    expected_names = {f"player{i}" for i in range(8)}
+    expected_names = {f"player{i+1}" for i in range(8)}
     assert set(players.keys()) == expected_names
 
 def test_each_player_initial_values():
